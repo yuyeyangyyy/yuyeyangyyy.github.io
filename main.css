@@ -2052,54 +2052,58 @@ div.paginate-container li:nth-last-child(2) a:after {
     margin-right: 4px;
   }
 
-/* --- Awards Section Styling (Final Version) --- */
+/* --- Awards Section Styling (Grid Version) --- */
 
-/* 1. 列表项布局：Flex 弹性盒子 */
+/* 1. 使用 Grid 网格布局：强制定义三列 */
+/* 第一列：25px (圆点) */
+/* 第二列：1fr (奖项名称，自动占满剩余空间) */
+/* 第三列：380px (单位和时间，固定宽度，确保左侧对齐线一致) */
 #awards ul li {
-    display: flex;
-    align-items: center;  /* 垂直居中 */
+    display: grid !important; 
+    grid-template-columns: 25px 1fr 380px !important;
+    align-items: center;       /* 垂直居中 */
     width: 100%;
-    margin-bottom: 8px;   /* 行间距 */
+    margin-bottom: 8px;
 }
 
-/* 2. 手动添加左侧实心圆点 */
+/* 2. 圆点样式 (作为网格的第一列) */
 #awards ul li::before {
     content: "•";
-    margin-right: 12px;   /* 圆点与文字的距离 */
-    color: #000;          /* 圆点颜色 */
+    color: #000;
     font-weight: bold;
-    flex-shrink: 0;       /* 防止圆点被压缩 */
+    text-align: center;        /* 圆点在自己的小格子居中 */
 }
 
-/* 3. 左侧列（奖项名称）：占据剩余空间 */
+/* 3. 奖项名称 (作为网格的第二列) */
 #awards ul li span:first-of-type {
-    flex: 1;              /* 关键：自动撑开宽度，把右侧列挤到最右边 */
-    margin-right: 20px;   /* 与右侧列保持最小间距，防止贴在一起 */
+    text-align: left;
+    padding-right: 10px;       /* 防止文字太长碰到右边 */
 }
 
-/* 4. 右侧列（单位和时间）：固定宽度 + 左对齐 */
+/* 4. 单位和时间 (作为网格的第三列) */
 #awards ul li span:last-child {
-    width: 40%;           /* 关键修改：设置一个固定宽度（根据内容长短调整，40% 或 350px 均可） */
-    text-align: left;     /* 关键修改：文字在盒子内部左对齐 */
-    color: #555;          /* 稍微淡一点的颜色（可选） */
+    text-align: left !important; /* 强制左对齐 */
+    width: 100%;               /* 占满这 380px 的格子 */
+    /* 因为格子宽度固定为 380px，所以所有行的这段文字都会从同一个垂直位置开始 */
 }
 
-/* --- 手机端适配 --- */
-@media screen and (max-width: 600px) {
+/* --- 手机屏幕适配 --- */
+@media screen and (max-width: 700px) {
     #awards ul li {
-        flex-wrap: wrap;       /* 允许换行 */
-        align-items: flex-start;
+        /* 手机上改为两列：圆点 + 内容 */
+        grid-template-columns: 25px 1fr !important;
+        row-gap: 2px;
     }
     
+    /* 奖项名称 */
     #awards ul li span:first-of-type {
-        margin-right: 0;
-        width: 100%;           /* 手机上占满一行 */
+        grid-column: 2;        /* 放在第2列 */
     }
 
+    /* 单位和时间 */
     #awards ul li span:last-child {
-        width: 100%;           /* 手机上占满下一行 */
-        padding-left: 20px;    /* 稍微缩进一点，使其看起来像附属信息 */
-        margin-top: 2px;
+        grid-column: 2;        /* 也放在第2列，自动换行到下面 */
+        color: #666;
         font-size: 0.9em;
     }
 }
