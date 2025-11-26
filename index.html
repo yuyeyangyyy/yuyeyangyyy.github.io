@@ -534,7 +534,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<div class="footer-col footer-col-3">
     	<!--<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fwillhua127.github.io&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a> -->
 	<!-- <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?user=Lxe71v4AAAAJ&hl=en&url=https%3A%2F%2Fscholar.google.com%2Fcitations&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a> -->
-		<p class="text">Last updated: Aug, 2025.<br>The style of this website is borrowed from <a href='https://leoyuan.site/' target="_blank">Jun Cen's homepage</a>.</p>
+		<p class="text">Last updated: <span id="last-updated-date"></span>.<br>The style of this website is borrowed from <a href='https://cen-jun.com/' target="_blank">Jun Cen's homepage</a>.</p>
 	</div>
   </div>
   </div>
@@ -561,6 +561,21 @@ jQuery(document).ready(function() {
         return false;
     })
 });
+</script>
+	<script>
+  // 自动更新 Last updated 日期
+  (function() {
+    const dateBox = document.getElementById('last-updated-date');
+    if (dateBox) {
+      const now = new Date();
+      // 获取英文短月份 (Jan, Feb, Mar...)
+      const month = now.toLocaleString('en-US', { month: 'short' });
+      // 获取年份
+      const year = now.getFullYear();
+      // 组合并写入 (格式: Aug, 2025)
+      dateBox.innerText = month + ", " + year;
+    }
+  })();
 </script>
   </body>
 
