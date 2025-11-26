@@ -2051,3 +2051,19 @@ div.paginate-container li:nth-last-child(2) a:after {
     height: 16px;
     margin-right: 4px;
   }
+
+/* Awards Section Alignment */
+#awards ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 垂直居中对齐 */
+    width: 100%;
+}
+
+/* 针对小屏幕（手机）的优化：如果屏幕太窄，允许换行 */
+@media screen and (max-width: 600px) {
+    #awards ul li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
