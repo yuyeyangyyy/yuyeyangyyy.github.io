@@ -2052,58 +2052,57 @@ div.paginate-container li:nth-last-child(2) a:after {
     margin-right: 4px;
   }
 
-/* --- Awards Section Styling (Grid Version) --- */
+/* --- Awards Section Styling (Final Polished Version) --- */
 
-/* 1. 使用 Grid 网格布局：强制定义三列 */
-/* 第一列：25px (圆点) */
-/* 第二列：1fr (奖项名称，自动占满剩余空间) */
-/* 第三列：380px (单位和时间，固定宽度，确保左侧对齐线一致) */
 #awards ul li {
-    display: grid !important; 
-    grid-template-columns: 25px 1fr 380px !important;
+    display: grid !important;
+    /* 第一列 25px: 圆点
+       第二列 1fr : 奖项名称（自动占据中间所有空地，把第三列推到最右边）
+       第三列 auto: 单位和时间（自动根据文字长度设定宽度，确保最长的一行紧贴右边）
+    */
+    grid-template-columns: 25px 1fr auto !important;
+    column-gap: 20px;          /* 确保奖项名称和时间之间至少有 20px 的间距 */
     align-items: center;       /* 垂直居中 */
     width: 100%;
     margin-bottom: 8px;
 }
 
-/* 2. 圆点样式 (作为网格的第一列) */
+/* 圆点样式 */
 #awards ul li::before {
     content: "•";
     color: #000;
     font-weight: bold;
-    text-align: center;        /* 圆点在自己的小格子居中 */
+    text-align: center;
 }
 
-/* 3. 奖项名称 (作为网格的第二列) */
+/* 奖项名称 */
 #awards ul li span:first-of-type {
     text-align: left;
-    padding-right: 10px;       /* 防止文字太长碰到右边 */
+    /* 不需要 padding-right 了，因为 grid 设置了 column-gap */
 }
 
-/* 4. 单位和时间 (作为网格的第三列) */
+/* 单位和时间 */
 #awards ul li span:last-child {
-    text-align: left !important; /* 强制左对齐 */
-    width: 100%;               /* 占满这 380px 的格子 */
-    /* 因为格子宽度固定为 380px，所以所有行的这段文字都会从同一个垂直位置开始 */
+    text-align: left !important; /* 保持左对齐 */
+    white-space: nowrap;         /* (可选) 防止长名字换行，强制在同一行显示 */
 }
 
 /* --- 手机屏幕适配 --- */
 @media screen and (max-width: 700px) {
     #awards ul li {
-        /* 手机上改为两列：圆点 + 内容 */
-        grid-template-columns: 25px 1fr !important;
-        row-gap: 2px;
+        grid-template-columns: 25px 1fr !important; /* 手机上改回两列 */
+        row-gap: 4px;
     }
     
-    /* 奖项名称 */
     #awards ul li span:first-of-type {
-        grid-column: 2;        /* 放在第2列 */
+        grid-column: 2;
+        white-space: normal;     /* 手机上允许换行 */
     }
 
-    /* 单位和时间 */
     #awards ul li span:last-child {
-        grid-column: 2;        /* 也放在第2列，自动换行到下面 */
+        grid-column: 2;
         color: #666;
         font-size: 0.9em;
+        white-space: normal;     /* 手机上允许换行 */
     }
 }
