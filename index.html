@@ -78,7 +78,58 @@
 	
   </style>
   
+<style>
+  /* --- 最终修正版：自动靠右 + 左对齐 --- */
+  
+  /* 1. 布局模式 */
+  #awards ul li {
+      display: grid !important;
+      /* 第一列 25px : 圆点
+         第二列 1fr  : 弹簧，自动把第三列推到最右边
+         第三列 auto : 关键！宽度由内容决定。
+                      这样最长的一行字会紧贴右边，
+                      而短的字会以这行的左边缘为基准对齐。
+      */
+      grid-template-columns: 25px 1fr auto !important;
+      column-gap: 20px;          /* 保证中间至少有间距 */
+      align-items: center;       /* 垂直居中 */
+      width: 100%;
+      margin-bottom: 8px;
+  }
 
+  /* 2. 圆点 */
+  #awards ul li::before {
+      content: "•";
+      color: #000;
+      font-weight: bold;
+      text-align: center;
+  }
+
+  /* 3. 左侧：奖项名称 */
+  #awards ul li span:first-of-type {
+      text-align: left;
+  }
+
+  /* 4. 右侧：单位和时间 */
+  #awards ul li span:last-child {
+      text-align: left !important; /* 强制左对齐 */
+      white-space: nowrap;         /* 禁止换行，保持整齐 */
+      color: #555;
+  }
+
+  /* --- 手机适配 --- */
+  @media screen and (max-width: 600px) {
+      #awards ul li {
+          grid-template-columns: 25px 1fr !important;
+          row-gap: 4px;
+      }
+      #awards ul li span:first-of-type { grid-column: 2; }
+      #awards ul li span:last-child { 
+          grid-column: 2; 
+          white-space: normal;
+      }
+  }
+</style>
   
 </head>
 
