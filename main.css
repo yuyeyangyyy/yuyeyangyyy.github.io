@@ -2052,18 +2052,54 @@ div.paginate-container li:nth-last-child(2) a:after {
     margin-right: 4px;
   }
 
-/* Awards Section Alignment */
+/* --- Awards Section Styling (Final Version) --- */
+
+/* 1. 列表项布局：Flex 弹性盒子 */
 #awards ul li {
     display: flex;
-    justify-content: space-between;
-    align-items: center; /* 垂直居中对齐 */
+    align-items: center;  /* 垂直居中 */
     width: 100%;
+    margin-bottom: 8px;   /* 行间距 */
 }
 
-/* 针对小屏幕（手机）的优化：如果屏幕太窄，允许换行 */
+/* 2. 手动添加左侧实心圆点 */
+#awards ul li::before {
+    content: "•";
+    margin-right: 12px;   /* 圆点与文字的距离 */
+    color: #000;          /* 圆点颜色 */
+    font-weight: bold;
+    flex-shrink: 0;       /* 防止圆点被压缩 */
+}
+
+/* 3. 左侧列（奖项名称）：占据剩余空间 */
+#awards ul li span:first-of-type {
+    flex: 1;              /* 关键：自动撑开宽度，把右侧列挤到最右边 */
+    margin-right: 20px;   /* 与右侧列保持最小间距，防止贴在一起 */
+}
+
+/* 4. 右侧列（单位和时间）：固定宽度 + 左对齐 */
+#awards ul li span:last-child {
+    width: 40%;           /* 关键修改：设置一个固定宽度（根据内容长短调整，40% 或 350px 均可） */
+    text-align: left;     /* 关键修改：文字在盒子内部左对齐 */
+    color: #555;          /* 稍微淡一点的颜色（可选） */
+}
+
+/* --- 手机端适配 --- */
 @media screen and (max-width: 600px) {
     #awards ul li {
-        flex-direction: column;
+        flex-wrap: wrap;       /* 允许换行 */
         align-items: flex-start;
+    }
+    
+    #awards ul li span:first-of-type {
+        margin-right: 0;
+        width: 100%;           /* 手机上占满一行 */
+    }
+
+    #awards ul li span:last-child {
+        width: 100%;           /* 手机上占满下一行 */
+        padding-left: 20px;    /* 稍微缩进一点，使其看起来像附属信息 */
+        margin-top: 2px;
+        font-size: 0.9em;
     }
 }
